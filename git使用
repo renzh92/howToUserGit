@@ -1,0 +1,96 @@
+1、新建一个目录，存放下载下来的项目
+2、进入刚刚新建的文件夹，点击鼠标右键，选择"Git Bash Here"
+3、进行基础配置，作为 git 的基础配置，作用是告诉 git 你是谁，你输入的信息将出现在你创建的提交中，使用下面两条命令：
+　　git config --global user.name "你的名字或昵称"
+　　git config --global user.email "你的邮箱"
+4、在gitspace文件夹中执行下面命令，完成初始化
+      git init
+      git remote add origin <你的项目地址> //注:项目地址形式为:https://gitee.com/xxx/xxx.git或者 git@gitee.com:xxx/xxx.git
+5、如果你想克隆，只需要执行命令
+     git clone <项目地址>
+
+
+
+-- 创建分支 并提交代码
+git branch dev --创建dev分支
+git checkout dev  -- 切换到dev分支
+git branch --查看分支
+
+
+git status  查看当前文件修改状态
+git add xxx 将本地修改文件添加到本地git缓存区中，多个文件用空格隔开（git add file1 file2 file3），git config/*（添加指定目录下的文件）
+git commit -m "填写注释信息"   推送修改到本地git库中
+git push origin mybranch     //把当前提交到git本地仓库的代码推送到远程主机origin的mybranch(自己分支名)分支上。
+
+
+git log --oneline  ---简易日志
+git log --- 完整日志
+
+-----git协作开发使用方法（需要先commit后才能拉取最新代码合并代码）
+
+git fetch origin master:temp -- 从远程origi仓库的master分支下载代码到本地并新建分支temp
+git diff temp  -- 比较本地仓库与远程仓库区别
+git merge temp  --将temp合并到master
+git branch -d temp -- 删除temp分支
+git checkout dev  --切换到dev分支
+git merge master  --将master分支合并到dev
+git push --推送分支代码到远程仓库
+
+-------------------------------
+git pull
+git checkout dev
+git merge master
+-------------------------------
+Please enter a commit message to explain why this merge is necessary.push or
+git 在pull或者合并分支的时候有时会遇到这个界面。可以不管(直接下面3,4步)，如果要输入解释的话就需要:
+
+1.按键盘字母 i 进入insert模式
+
+2.修改最上面那行黄色合并信息,可以不修改
+
+3.按键盘左上角"Esc"
+
+4.输入":wq",注意是冒号+wq,按回车键即可
+-------------------------------
+---- 撤销命令（commit后想撤销）
+git reset --soft HEAD^
+这样就成功的撤销了你的commit
+注意，仅仅是撤回commit操作，您写的代码仍然保留。
+
+HEAD^的意思是上一个版本，也可以写成HEAD~1
+
+如果你进行了2次commit，想都撤回，可以使用HEAD~2
+
+这几个参数：
+--mixed 
+意思是：不删除工作空间改动代码，撤销commit，并且撤销git add . 操作
+这个为默认参数,git reset --mixed HEAD^ 和 git reset HEAD^ 效果是一样的。
+ 
+--soft  
+不删除工作空间改动代码，撤销commit，不撤销git add . 
+ 
+--hard
+删除工作空间改动代码，撤销commit，撤销git add . 
+注意：完成这个操作后，就恢复到了上一次的commit状态。
+
+
+如果commit注释写错了，只是想改一下注释，只需要：
+git commit --amend
+此时会进入默认vim编辑器，修改注释完毕后保存就好了。
+
+git add 如果添加了错误的文件的话
+
+撤销操作
+
+git status 先看一下add 中的文件 
+git reset HEAD 如果后面什么都不跟的话 就是上一次add 里面的全部撤销了 
+git reset HEAD XXX/XXX/XXX.java 就是对某个文件进行撤销了
+
+放弃文件的修改（文件未add）：git checkout -- a.txt
+
+-- 新上传项目到git
+git init
+git remote add origin git地址
+git add .
+git commit -m "initpush"
+git push -u origin master
